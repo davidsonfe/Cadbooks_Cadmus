@@ -6,7 +6,6 @@ import {leitorRoutes} from "./routes/leitorRoutes";
 import {config} from "dotenv";
 import "fastify-mongodb";
 import "fastify-jwt";
-import "fastify-cors";
 
 
 config();

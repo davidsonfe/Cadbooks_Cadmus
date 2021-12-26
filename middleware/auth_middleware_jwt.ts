@@ -1,9 +1,9 @@
-import {FastifyInstance, FastifyReply, FastifyRequest} from "fastify";
+import {FastifyInstance} from "fastify";
 import fastifyPlugin from "fastify-plugin";
 import "fastify-jwt";
 
 async function jwtAuth(fastify: FastifyInstance) {
-    fastify.decorate('jwtauthentication', async (req: FastifyRequest, rep: FastifyReply) => {
+    fastify.decorate('jwtauthentication', async (req: any, rep: any) => {
         try {
             await req.jwtVerify();
         }

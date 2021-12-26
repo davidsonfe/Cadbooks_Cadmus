@@ -1,9 +1,9 @@
 const login = {
     body: {
         type: 'object',
-        require: ['doc_id', 'passwd'],
+        require: ['cpf', 'passwd'],
         properties: {
-            doc_id: {type: 'string'},
+            cpf: {type: 'string'},
             passwd: {type: 'string'}
         },
         additionalProperties: false
