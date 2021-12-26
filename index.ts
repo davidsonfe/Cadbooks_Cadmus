@@ -6,6 +6,7 @@ import {leitorRoutes} from "./routes/leitorRoutes";
 import {config} from "dotenv";
 import "fastify-mongodb";
 import "fastify-jwt";
+import {cors} from "./middleware/cors_middleware";
 
 
 config();
@@ -19,6 +20,7 @@ server.register(require('fastify-jwt'), {
 server.register(mongoConnector);
 server.register(jwtConn);
 server.register(require('fastify-swagger'), swagger.options);
+server.register(cors);
 server.register(loginRoutes);
 server.register(leitorRoutes);
 

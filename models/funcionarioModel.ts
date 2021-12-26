@@ -1,3 +1,6 @@
+const bcrypt = require("bcrypt");
+
+
 export class FuncionarioModel {
     nome: string;
     email: string;
@@ -6,5 +9,5 @@ export class FuncionarioModel {
     estado: string;
     dt_nas: Date;
     cpf: string;
-    passwd: () => {};
+    passwd: (passwd) => {};
 }

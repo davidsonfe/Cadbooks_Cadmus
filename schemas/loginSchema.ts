@@ -1,4 +1,10 @@
 const login = {
+    headers: {
+        type: 'object',
+        properties: {
+            "Access-Control-Allow-Origin": "*",
+        }
+    },
     body: {
         type: 'object',
         require: ['cpf', 'passwd'],
