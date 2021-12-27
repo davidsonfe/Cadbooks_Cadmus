@@ -16,8 +16,15 @@ const login = {
                 token: {type: 'string'}
             },
             additionalProperties: false
+        },
+        400: {
+            type: 'object',
+            properties: {
+                msg: {type: 'string'}
+            },
+            additionalProperties: false
         }
     }
 }
 
-module.exports = { login };
+module.exports = {login};

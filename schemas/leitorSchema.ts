@@ -14,6 +14,12 @@ const leitorSchema = {
                 dt_nasc: {type: "string"}
             },
         },
+        400: {
+            type: 'object',
+            properties: {
+                msg: {type:"string"}
+            }
+        }
     },
 }
 

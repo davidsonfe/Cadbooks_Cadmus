@@ -14,12 +14,8 @@ export class LoginService {
 
     async logIn(user: string, pass: string) {
         try {
-            if (this.collection) {
-                return await this.collection.findOne({cpf: user});
-                // return await this.bcrypt.compare(pass, a.passwd);
-            } else {
-                return {};
-            }
+            if (this.collection) return await this.collection.findOne({cpf: user});
+                return { msg: "Usuário ou senha incorretos!"};
         } catch (error) {
             console.error(error);
             throw error;

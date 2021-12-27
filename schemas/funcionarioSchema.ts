@@ -12,6 +12,12 @@ const funcsSchema = {
                 cpf: {type: "string"},
             },
         },
+        404: {
+           type: 'object',
+           properties: {
+               msg: {type: "string"}
+           },
+        },
     },
 };
 
@@ -71,7 +77,7 @@ const funcUpdateSchema = {
         },
     },
     querystring: {
-        cpf: { type: 'string' },
+        cpf: {type: 'string'},
     },
     required: ["cpf"],
     response: {
@@ -86,7 +92,7 @@ const funcUpdateSchema = {
 
 const funcDeleteSchema = {
     querystring: {
-        cpf: { type: 'string' },
+        cpf: {type: 'string'},
     },
     required: ["cpf"],
     response: {
@@ -100,4 +106,4 @@ const funcDeleteSchema = {
 };
 
 
-module.exports = { funcsSchema, funcBodySchema, funcRegisterSchema, funcUpdateSchema, funcDeleteSchema};
+module.exports = {funcsSchema, funcBodySchema, funcRegisterSchema, funcUpdateSchema, funcDeleteSchema};

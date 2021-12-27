@@ -25,6 +25,7 @@ export class FuncionarioService {
     async getFunc(id: string) {
         try {
             if (this.collection) return await this.collection.find({cpf: id}).project({_id: 0}).toArray();
+            return { msg: "Funcionário não encontrado!" };
         } catch (error) {
             console.error(error);
             throw error;

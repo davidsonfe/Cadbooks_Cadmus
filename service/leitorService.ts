@@ -24,6 +24,7 @@ export class LeitorService {
     async getLeitor(id: string) {
         try {
             if (this.collection) return await this.collection.find({doc_id: id}).project({_id:0}).toArray();
+            return { msg: "Leitor não encontrado!" };
         } catch (error) {
             console.error(error);
             throw error;
