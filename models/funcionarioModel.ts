@@ -1,13 +1,10 @@
-const bcrypt = require("bcrypt");
-
-
 export class FuncionarioModel {
     nome: string;
-    email: string;
     endereco: string;
     cidade: string;
     estado: string;
-    dt_nas: Date;
+    tel: string;
+    dt_nas: string;
     cpf: string;
-    passwd: (passwd) => {};
+    passwd: string;
 }

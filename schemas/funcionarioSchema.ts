@@ -1,4 +1,4 @@
-const leitorSchema = {
+const funcsSchema = {
     response: {
         200: {
             type: 'array',
@@ -8,16 +8,14 @@ const leitorSchema = {
                 cidade: {type: "string"},
                 estado: {type: "string"},
                 tel: {type: "string"},
-                email: {type: "string"},
-                doc_id: {type: "string"},
-                cat_leitor: {type: "string"},
-                dt_nasc: {type: "string"}
+                dt_nasc: {type: "string"},
+                cpf: {type: "string"},
             },
         },
     },
-}
+};
 
-const leitorBodySchema = {
+const funcBodySchema = {
     body: {
         type: 'object',
         properties: {
@@ -26,26 +24,14 @@ const leitorBodySchema = {
             cidade: {type: "string"},
             estado: {type: "string"},
             tel: {type: "string"},
-            email: {type: "string"},
-            doc_id: {type: "string"},
-            cat_leitor: {type: "string"},
-            dt_nasc: {type: "string"}
+            dt_nasc: {type: "string"},
+            cpf: {type: "string"},
+            passwd: {type: "string"}
         },
     },
-    querystring: {
-        doc_id: { type: 'string' },
-    },
-    required: ["doc_id"],
-    response: {
-        200: {
-            type: 'object',
-            properties: {
-                msg: {type: "string"},
-            },
-        },
-    }
-}
-const leitorUpdateSchema = {
+};
+
+const funcRegisterSchema = {
     body: {
         type: 'object',
         properties: {
@@ -54,16 +40,12 @@ const leitorUpdateSchema = {
             cidade: {type: "string"},
             estado: {type: "string"},
             tel: {type: "string"},
-            email: {type: "string"},
-            doc_id: {type: "string"},
-            cat_leitor: {type: "string"},
-            dt_nasc: {type: "string"}
+            dt_nasc: {type: "string"},
+            cpf: {type: "string"},
+            passwd: {type: "string"}
         },
     },
-    querystring: {
-        doc_id: { type: 'string' },
-    },
-    required: ["doc_id"],
+    required: ["cpf"],
     response: {
         200: {
             type: 'object',
@@ -72,13 +54,26 @@ const leitorUpdateSchema = {
             },
         },
     }
-}
+};
 
-const leitorDeleteSchema = {
-    querystring: {
-        doc_id: { type: 'string' },
+const funcUpdateSchema = {
+    body: {
+        type: 'object',
+        properties: {
+            nome: {type: "string"},
+            endereco: {type: "string"},
+            cidade: {type: "string"},
+            estado: {type: "string"},
+            tel: {type: "string"},
+            dt_nasc: {type: "string"},
+            cpf: {type: "string"},
+            passwd: {type: "string"}
+        },
     },
-    required: ["doc_id"],
+    querystring: {
+        cpf: { type: 'string' },
+    },
+    required: ["cpf"],
     response: {
         200: {
             type: 'object',
@@ -87,7 +82,22 @@ const leitorDeleteSchema = {
             },
         },
     }
-}
+};
+
+const funcDeleteSchema = {
+    querystring: {
+        cpf: { type: 'string' },
+    },
+    required: ["cpf"],
+    response: {
+        200: {
+            type: 'object',
+            properties: {
+                msg: {type: "string"},
+            },
+        },
+    }
+};
 
 
-module.exports = { leitorSchema, leitorBodySchema, leitorUpdateSchema, leitorDeleteSchema };
+module.exports = { funcsSchema, funcBodySchema, funcRegisterSchema, funcUpdateSchema, funcDeleteSchema};

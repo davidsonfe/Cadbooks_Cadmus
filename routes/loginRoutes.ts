@@ -3,10 +3,10 @@ import {FastifyInstance} from "fastify";
 import fastifyPlugin from "fastify-plugin";
 import "fastify-mongodb";
 import "fastify-jwt";
-import {FuncionarioModel} from "../models/funcionarioModel";
 
 
 const schemas = require("../schemas/loginSchema");
+// const bcrypt = require("bcrypt");
 
 export async function logonRoutes(fastify: FastifyInstance) {
     const login: LoginService = new LoginService(fastify, "funcionario");
@@ -14,21 +14,8 @@ export async function logonRoutes(fastify: FastifyInstance) {
     fastify.post('/login', { schema: schemas.login }, async (request: any, reply: any) => {
         try {
             const { cpf, passwd } = request.body;
-            const token = await login.logIn(cpf, passwd);
-            if (token) {
-                return ({token: fastify.jwt.sign({doc_id: cpf, passwd}, {expiresIn: 16400})});
-            } else {
-                reply.status(400).send({error: true, msg: "Todos os campos são obrigatórios!"});
-            }
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-    });
-
-    fastify.post('/signin', { schema: schemas.login }, async (request: any, reply: any) => {
-        try {
-            return await login.signIn(request.body as FuncionarioModel);
+            const teste =  await login.logIn(cpf, passwd);
+            return {token: fastify.jwt.sign({cpf, passwd}, {expiresIn: 16400})};
         } catch (error) {
             console.error(error);
             throw error;

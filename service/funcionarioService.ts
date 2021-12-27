@@ -2,6 +2,7 @@ import {FuncionarioModel} from "../models/funcionarioModel";
 import {FastifyInstance} from "fastify";
 import "fastify-mongodb";
 
+const bcrypt = require("bcrypt");
 
 export class FuncionarioService {
     collection;
@@ -14,7 +15,7 @@ export class FuncionarioService {
 
     async getFuncs() {
         try {
-            if (this.collection) return await this.collection.find({}).project({_id:0}).toArray();
+            if (this.collection) return await this.collection.find({}).project({_id: 0}).toArray();
         } catch (error) {
             console.error(error);
             throw error;
@@ -23,7 +24,7 @@ export class FuncionarioService {
 
     async getFunc(id: string) {
         try {
-            if (this.collection) return await this.collection.find({cpf: id}).project({_id:0}).toArray();
+            if (this.collection) return await this.collection.find({cpf: id}).project({_id: 0}).toArray();
         } catch (error) {
             console.error(error);
             throw error;
@@ -32,8 +33,9 @@ export class FuncionarioService {
 
     async postFunc(funcionario: FuncionarioModel) {
         try {
+            funcionario.passwd = await bcrypt.hash(funcionario.passwd, 10);
             if (this.collection) await this.collection.insertOne(funcionario);
-            return {};
+            return {msg: "Funcionário registrado com sucesso!"};
         } catch (error) {
             console.error(error);
             throw error;
@@ -43,7 +45,7 @@ export class FuncionarioService {
     async updateFunc(id: string, funcionario: FuncionarioModel) {
         try {
             if (this.collection) await this.collection.updateOne({cpf: id}, {$set: {...funcionario}});
-            return {};
+            return { msg: "Funcionário atualizado com sucesso!"};
         } catch (error) {
             console.error(error);
             throw error;
@@ -53,7 +55,7 @@ export class FuncionarioService {
     async deleteFunc(id: string) {
         try {
             if (this.collection) await this.collection.deleteOne({cpf: id});
-            return {};
+            return { msg: "Funcionário deletado com sucesso!"};
         } catch (error) {
             console.error(error)
             throw error;

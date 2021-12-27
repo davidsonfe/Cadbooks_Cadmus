@@ -1,10 +1,4 @@
 const login = {
-    headers: {
-        type: 'object',
-        properties: {
-            "Access-Control-Allow-Origin": "*",
-        }
-    },
     body: {
         type: 'object',
         require: ['cpf', 'passwd'],
@@ -26,4 +20,4 @@ const login = {
     }
 }
 
-module.exports = {login}
+module.exports = { login };

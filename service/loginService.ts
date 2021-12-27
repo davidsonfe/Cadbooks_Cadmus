@@ -14,18 +14,12 @@ export class LoginService {
 
     async logIn(user: string, pass: string) {
         try {
-            if (this.collection) return await this.collection.findOne({cpf: user, passwd: pass});
-            return{};
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-    }
-
-    async signIn(funcionario: FuncionarioModel) {
-        try {
-            if (this.collection) await this.collection.insertOne(funcionario);
-            return {};
+            if (this.collection) {
+                return await this.collection.findOne({cpf: user});
+                // return await this.bcrypt.compare(pass, a.passwd);
+            } else {
+                return {};
+            }
         } catch (error) {
             console.error(error);
             throw error;

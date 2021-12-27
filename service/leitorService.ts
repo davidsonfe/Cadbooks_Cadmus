@@ -33,7 +33,7 @@ export class LeitorService {
     async postLeitor(leitor: LeitorModel) {
         try {
             if (this.collection) await this.collection.insertOne(leitor);
-            return {};
+            return { msg: "Leitor cadastrado com sucesso!"};
         } catch (error) {
             console.error(error);
             throw error;
@@ -43,7 +43,7 @@ export class LeitorService {
     async updateLeitor(id: string, leitor: LeitorModel) {
         try {
             if (this.collection) await this.collection.updateOne({doc_id: id}, {$set: {...leitor}});
-            return {};
+            return { msg: "Leitor atualizado com sucesso!"};
         } catch (error) {
             console.error(error);
             throw error;
@@ -53,7 +53,7 @@ export class LeitorService {
     async deleteLeitor(id: string) {
         try {
             if (this.collection) await this.collection.deleteOne({doc_id: id});
-            return {};
+            return { msg: "Leitor deletado com sucesso!"};
         } catch (error) {
             console.error(error)
             throw error;
