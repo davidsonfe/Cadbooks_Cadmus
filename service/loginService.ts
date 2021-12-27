@@ -3,7 +3,6 @@ import "fastify-mongodb";
 
 
 const bcrypt = require("bcrypt");
-
 export class LoginService {
     collection;
 
@@ -18,8 +17,7 @@ export class LoginService {
             if (this.collection) {
                 const us =  await this.collection.find({cpf: user}).project({_id:0}).toArray();
                 if (typeof us !== "undefined" && us.length !== 0) {
-                    const b : typeof Boolean = await bcrypt.compare(pass, us[0].passwd);
-                    return b;
+                    return await bcrypt.compare(pass, us[0].passwd);
                 }
             }
         } catch (error) {

@@ -15,7 +15,7 @@ export class FuncionarioService {
 
     async getFuncs() {
         try {
-            if (this.collection) return await this.collection.find({}).project({_id: 0}).toArray();
+            if (this.collection) return await this.collection.find({}).project({_id: 0, passwd:0}).toArray();
         } catch (error) {
             console.error(error);
             throw error;
@@ -24,7 +24,7 @@ export class FuncionarioService {
 
     async getFunc(id: string) {
         try {
-            if (this.collection) return await this.collection.find({cpf: id}).project({_id: 0}).toArray();
+            if (this.collection) return await this.collection.find({cpf: id}).project({_id: 0, passwd:0}).toArray();
             return { msg: "Funcionário não encontrado!" };
         } catch (error) {
             console.error(error);
