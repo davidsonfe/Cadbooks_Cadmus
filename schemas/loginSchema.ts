@@ -17,7 +17,7 @@ const login = {
             },
             additionalProperties: false
         },
-        400: {
+        401: {
             type: 'object',
             properties: {
                 msg: {type: 'string'}

@@ -1,4 +1,7 @@
 const leitorSchema = {
+    querystring: {
+        doc_id: { type: 'string' },
+    },
     response: {
         200: {
             type: 'array',
@@ -17,7 +20,7 @@ const leitorSchema = {
         400: {
             type: 'object',
             properties: {
-                msg: {type:"string"}
+                msg: {type: "string"}
             }
         }
     },
@@ -38,10 +41,7 @@ const leitorBodySchema = {
             dt_nasc: {type: "string"}
         },
     },
-    querystring: {
-        doc_id: { type: 'string' },
-    },
-    required: ["doc_id"],
+    required: ["doc_id", "cat_leitor"],
     response: {
         200: {
             type: 'object',

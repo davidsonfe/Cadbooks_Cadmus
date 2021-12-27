@@ -4,9 +4,7 @@ import fastifyPlugin from "fastify-plugin";
 import "fastify-mongodb";
 import "fastify-jwt";
 
-
 const schemas = require("../schemas/loginSchema");
-// const bcrypt = require("bcrypt");
 
 export async function logonRoutes(fastify: FastifyInstance) {
     const login: LoginService = new LoginService(fastify, "funcionario");
@@ -14,8 +12,13 @@ export async function logonRoutes(fastify: FastifyInstance) {
     fastify.post('/login', { schema: schemas.login }, async (request: any, reply: any) => {
         try {
             const { cpf, passwd } = request.body;
-            const teste =  await login.logIn(cpf, passwd);
-            return {token: fastify.jwt.sign({cpf, passwd}, {expiresIn: 16400})};
+            const valid =  await login.logIn(cpf, passwd);
+            if (typeof valid !== "undefined") {
+                return { token: fastify.jwt.sign({cpf, passwd}, {expiresIn: 16400}) };
+            } else {
+                reply.code(401).send( { msg: "Usuário ou senha incorretos!"})
+            }
+
         } catch (error) {
             console.error(error);
             throw error;

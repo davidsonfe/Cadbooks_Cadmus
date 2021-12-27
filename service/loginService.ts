@@ -1,7 +1,8 @@
 import {FastifyInstance} from "fastify";
 import "fastify-mongodb";
-import {FuncionarioModel} from "../models/funcionarioModel";
 
+
+const bcrypt = require("bcrypt");
 
 export class LoginService {
     collection;
@@ -14,8 +15,13 @@ export class LoginService {
 
     async logIn(user: string, pass: string) {
         try {
-            if (this.collection) return await this.collection.findOne({cpf: user});
-                return { msg: "Usuário ou senha incorretos!"};
+            if (this.collection) {
+                const us =  await this.collection.find({cpf: user}).project({_id:0}).toArray();
+                if (typeof us !== "undefined" && us.length !== 0) {
+                    const b : typeof Boolean = await bcrypt.compare(pass, us[0].passwd);
+                    return b;
+                }
+            }
         } catch (error) {
             console.error(error);
             throw error;
