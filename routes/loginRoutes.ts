@@ -4,7 +4,6 @@ import fastifyPlugin from "fastify-plugin";
 import "fastify-mongodb";
 import "fastify-jwt";
 
-
 const schemas = require("../schemas/loginSchema");
 export async function logonRoutes(fastify: FastifyInstance) {
     const login: LoginService = new LoginService(fastify, "funcionario");

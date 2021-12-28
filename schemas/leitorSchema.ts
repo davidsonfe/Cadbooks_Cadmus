@@ -51,6 +51,7 @@ const leitorBodySchema = {
         },
     }
 }
+
 const leitorUpdateSchema = {
     body: {
         type: 'object',

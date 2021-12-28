@@ -8,7 +8,7 @@ import {config} from "dotenv";
 import "fastify-mongodb";
 import "fastify-jwt";
 import { reservaRoutes } from "./routes/reservaRoutes";
-
+import { livroRoutes } from "./routes/livroRoutes";
 
 config();
 const server: FastifyInstance = Fastify({logger: true});
@@ -27,6 +27,7 @@ server.register(loginRoutes);
 server.register(funcionarioRoutes);
 server.register(leitorRoutes);
 server.register(reservaRoutes);
+server.register(livroRoutes);
 
 const start = async () => {
     try {

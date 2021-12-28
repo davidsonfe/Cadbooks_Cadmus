@@ -1,4 +1,3 @@
-
 import {LeitorService} from "../service/leitorService";
 import {LeitorModel} from "../models/leitorModel";
 import fastifyPlugin from "fastify-plugin";
