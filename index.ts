@@ -7,6 +7,7 @@ import {leitorRoutes} from "./routes/leitorRoutes";
 import {config} from "dotenv";
 import "fastify-mongodb";
 import "fastify-jwt";
+import { reservaRoutes } from "./routes/reservaRoutes";
 
 
 config();
@@ -25,7 +26,7 @@ server.register(require('fastify-swagger'), swagger.options);
 server.register(loginRoutes);
 server.register(funcionarioRoutes);
 server.register(leitorRoutes);
-
+server.register(reservaRoutes);
 
 const start = async () => {
     try {
