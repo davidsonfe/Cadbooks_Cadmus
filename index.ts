@@ -9,8 +9,10 @@ import "fastify-mongodb";
 import "fastify-jwt";
 import { reservaRoutes } from "./routes/reservaRoutes";
 import { livroRoutes } from "./routes/livroRoutes";
+import { emprestimoRoutes } from "./routes/emprestimoRoutes";
 
 config();
+
 const server: FastifyInstance = Fastify({logger: true});
 const swagger = require('./config/swagger');
 server.register(require('fastify-cors'), {
@@ -28,6 +30,7 @@ server.register(funcionarioRoutes);
 server.register(leitorRoutes);
 server.register(reservaRoutes);
 server.register(livroRoutes);
+server.register(emprestimoRoutes);
 
 const start = async () => {
     try {
