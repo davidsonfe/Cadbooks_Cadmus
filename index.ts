@@ -8,6 +8,7 @@ import {config} from "dotenv";
 import "fastify-mongodb";
 import "fastify-jwt";
 import { reservaRoutes } from "./routes/reservaRoutes";
+import { emprestimoRoutes } from "./routes/emprestimoRoutes";
 
 
 config();
@@ -27,6 +28,7 @@ server.register(loginRoutes);
 server.register(funcionarioRoutes);
 server.register(leitorRoutes);
 server.register(reservaRoutes);
+server.register(emprestimoRoutes);
 
 const start = async () => {
     try {
