@@ -11,6 +11,8 @@ import { reservaRoutes } from "./routes/reservaRoutes";
 import { livroRoutes } from "./routes/livroRoutes";
 import { emprestimoRoutes } from "./routes/emprestimoRoutes";
 import { devolutionRoutes } from "./routes/devolucaoRoutes";
+import { catLivroRoutes } from "./routes/catLivroRoutes";
+import { catLeitorRoutes } from "./routes/catLeitorRoutes";
 
 config();
 
@@ -32,7 +34,9 @@ server.register(leitorRoutes);
 server.register(reservaRoutes);
 server.register(livroRoutes);
 server.register(emprestimoRoutes);
-server.register(devolutionRoutes)
+server.register(devolutionRoutes);
+server.register(catLivroRoutes);
+server.register(catLeitorRoutes);
 
 const start = async () => {
     try {
