@@ -22,8 +22,7 @@ export class DevolucaoService {
 
     async getDevolucao(id: string) {
         try {
-            if (this.collection) return await this.collection.find({id_obracop: id}).project({_id: 0}).toArray();
-            return { msg: "devolução não encontrado!" };
+            if (this.collection) return await this.collection.findOne({id_obracop: id});
         } catch (error) {
             console.error(error);
             throw error;

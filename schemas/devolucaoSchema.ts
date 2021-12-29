@@ -19,6 +19,27 @@ const devolucaoSchema = {
     },
 }
 
+const devolucoesSchema = {
+    querystring: {
+        id_obracop: { type: 'string' },
+    },
+    response: {
+        200: {
+            type: 'object',
+            properties: {
+                id_obracop: {type: "string"},
+                dt_devolucao: {type: "string"},
+            },
+        },
+        400: {
+            type: 'object',
+            properties: {
+                msg: {type: "string"}
+            }
+        }
+    },
+}
+
 const devolucaoBodySchema = {
     body: {
         type: 'object',
@@ -60,7 +81,7 @@ const devolucaoUpdateSchema = {
 }
 
 const devolucaoDeleteSchema = {
-    querystring: {
+    params: {
         id_obracop: { type: 'string' },
     },
     required: ["id_obracop"],
@@ -75,4 +96,4 @@ const devolucaoDeleteSchema = {
 }
 
 
-module.exports = { devolucaoSchema, devolucaoBodySchema, devolucaoUpdateSchema, devolucaoDeleteSchema };
+module.exports = { devolucaoSchema, devolucaoBodySchema, devolucaoUpdateSchema, devolucaoDeleteSchema, devolucoesSchema };
