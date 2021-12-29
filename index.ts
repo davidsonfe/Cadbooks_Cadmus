@@ -10,6 +10,7 @@ import "fastify-jwt";
 import { reservaRoutes } from "./routes/reservaRoutes";
 import { livroRoutes } from "./routes/livroRoutes";
 import { emprestimoRoutes } from "./routes/emprestimoRoutes";
+import { devolutionRoutes } from "./routes/devolucaoRoutes";
 
 config();
 
@@ -31,6 +32,7 @@ server.register(leitorRoutes);
 server.register(reservaRoutes);
 server.register(livroRoutes);
 server.register(emprestimoRoutes);
+server.register(devolutionRoutes)
 
 const start = async () => {
     try {
