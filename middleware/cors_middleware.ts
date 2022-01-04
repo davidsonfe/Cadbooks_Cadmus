@@ -4,7 +4,7 @@ import "fastify-cors";
 
 async function corss(fastify: FastifyInstance) {
   fastify.register(require('fastify-cors'), {
-    origin: false
+    origin: true
   });
 }
 

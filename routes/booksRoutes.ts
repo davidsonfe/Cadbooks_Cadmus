@@ -16,9 +16,6 @@ export async function bookRoutes(fastify: typeof server) {
       try {
         const bks = await books.getBooks();
         if (Array.isArray(bks) && bks.length > 0) {
-          for (let i = 0; i < bks.length; i++) {
-            bks[i].dt_public = bks[i].dt_public.toLocaleDateString("pt-BR");
-          }
           return bks;
         }
         reply.status(404).send({msg: "Nenhum livro encontrado."});
@@ -35,7 +32,6 @@ export async function bookRoutes(fastify: typeof server) {
       try {
         const bk = await books.getBook(request.params.isn_id);
         if (Array.isArray(bk) && bk.length > 0) {
-          bk[0].dt_public = bk[0].dt_public.toLocaleDateString("pt-BR");
           return bk;
         }
         reply.status(404).send({msg: "Livro não encontrado."});

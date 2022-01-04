@@ -20,7 +20,7 @@ const server = Fastify({logger: true});
 const swagger = require('./config/swagger');
 
 server.register(require('fastify-cors'), {
-  origin: '*',
+  origin: 'http:\//localhost:3000/*',
 });
 server.register(require('fastify-jwt'), {
   secret: `${process.env.SECRET}`
@@ -48,7 +48,7 @@ const start = async () => {
   }
 };
 
-start().then(v => {
-  return v;
+start().then(r => {
+  return r;
 });
 module.exports = server;
