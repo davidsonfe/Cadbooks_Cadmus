@@ -46,7 +46,7 @@ export class CatReaderService {
   async updateCatReader(id: string, leitorCat: CatReaderModel) {
     try {
       if (this.collection) {
-        const {acknowledged} = await this.collection.updateOne({doc_id: id}, {$set: {...leitorCat}});
+        const {acknowledged} = await this.collection.updateOne({cat_id: id}, {$set: {...leitorCat}});
         return acknowledged;
       }
     } catch (error) {
@@ -57,7 +57,7 @@ export class CatReaderService {
   async deleteCatReader(id: string) {
     try {
       if (this.collection) {
-        const {acknowledged} = await this.collection.deleteOne({doc_id: id});
+        const {acknowledged} = await this.collection.deleteOne({cat_id: id});
         return acknowledged;
       }
     } catch (error) {

@@ -93,7 +93,7 @@ const catReaderUpDelSchema = {
     200: {
       type: 'object',
       properties: {
-        msg: {type: "number"},
+        msg: {type: "string"},
       },
     },
     400: {
