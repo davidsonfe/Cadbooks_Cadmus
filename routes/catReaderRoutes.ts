@@ -10,7 +10,7 @@ export async function clientCatRoutes(fastify: typeof server) {
 
   fastify.get("/reader_cat/findall", {
       preValidation: [fastify.jwtauthentication],
-      schema: schemas.catReaderBodySchema
+      schema: schemas.catReaderAllSchema
     },
     async (request: any, reply: any) => {
       try {
@@ -25,7 +25,7 @@ export async function clientCatRoutes(fastify: typeof server) {
 
   fastify.get("/reader_cat/findone/:doc_id", {
       preValidation: [fastify.jwtauthentication],
-      schema: schemas.catReaderBodySchema
+      schema: schemas.catReaderOneSchema
     },
     async (request: any, reply: any) => {
       try {
@@ -55,7 +55,7 @@ export async function clientCatRoutes(fastify: typeof server) {
 
   fastify.put("/reader_cat/update/:doc_id", {
       preValidation: [fastify.jwtauthentication],
-      schema: schemas.catReaderBodySchema
+      schema: schemas.catReaderUpDelSchema
     },
     async (request: any, reply: any) => {
       try {
@@ -70,7 +70,7 @@ export async function clientCatRoutes(fastify: typeof server) {
 
   fastify.delete("/reader_cat/delete/:doc_id", {
       preValidation: [fastify.jwtauthentication],
-      schema: schemas.catReaderBodySchema
+      schema: schemas.catReaderUpDelSchema
     },
     async (request: any, reply: any) => {
       try {

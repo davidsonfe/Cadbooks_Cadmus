@@ -48,12 +48,15 @@ export class BorrowService {
             if (dia_devol <= 30) {
               borrow.dt_devol = new Date(`${borrow.dt_empr.getMonth()+1}-${dia_devol}-${borrow.dt_empr.getFullYear()}`);
               const {acknowledged} = await this.collection.insertOne(borrow);
+
               return acknowledged;
+
             } else if (dia_devol > 30) {
               const mes_devol = borrow.dt_empr.getMonth()+2;
               dia_devol = dia_devol - 30;
               borrow.dt_devol = new Date(`${mes_devol}-${dia_devol}-${borrow.dt_empr.getFullYear()}`);
               const {acknowledged} = await this.collection.insertOne(borrow);
+
               return acknowledged;
             }
           } else {

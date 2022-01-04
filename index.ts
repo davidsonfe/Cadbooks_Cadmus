@@ -1,4 +1,4 @@
-import Fastify, {FastifyInstance} from "fastify";
+import Fastify from "fastify";
 import {mongoConnector} from "./db/mongoConnector";
 import {jwtConn} from "./middleware/auth_middleware_jwt";
 import {loginRoutes} from "./routes/loginRoutes";
@@ -16,7 +16,7 @@ import "fastify-jwt";
 
 
 config();
-const server: FastifyInstance = Fastify({logger: true});
+const server = Fastify({logger: true});
 const swagger = require('./config/swagger');
 
 server.register(require('fastify-cors'), {
