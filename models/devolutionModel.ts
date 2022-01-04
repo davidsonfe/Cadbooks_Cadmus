@@ -1,4 +1,4 @@
 export class DevolutionModel {
-  id_obracop: string;
-  dt_devolucao: string;
+  isn_id_cop: string;
+  dt_devol: string;
 }

@@ -61,21 +61,6 @@ export async function borrowwRoutes(fastify: typeof server) {
       }
     });
 
-  fastify.put("/borrow/update/:doc_id", {
-      preValidation: [fastify.jwtauthentication],
-      schema: schemas.borrowUpdateSchema
-    },
-    async (request: any, reply: any) => {
-      try {
-        const verify = await borrow.updateBorrow(request.params.doc_id, request.body as BorrowModel);
-        if (verify)
-          return reply.status(200).send({msg: "Empréstimo atualizado."});
-        reply.status(400).send({msg: "Verique os campos e tente novamente."});
-      } catch (err) {
-        reply.status(500).send({err});
-      }
-    });
-
   fastify.delete("/borrow/delete/:doc_id", {
       preValidation: [fastify.jwtauthentication],
       schema: schemas.borrowDeleteSchema

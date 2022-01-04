@@ -71,42 +71,6 @@ export class BorrowService {
     }
   }
 
-  async updateBorrow(id: string, borrow: BorrowModel) {
-    try {
-      if (this.collection && this.collection2) {
-        const {dt_empr} = borrow;
-        borrow.dt_empr = new Date(dt_empr);
-        const limit = await this.collection2.find({isn_id: borrow.isn_id_cop}).project({_id: 0}).toArray();
-
-        if (Array.isArray(limit) && limit.length > 0) {
-          if (!limit[0].reservado && !limit[0].emprestado) {
-            let dia_devl = borrow.dt_empr.getDate() + limit[0].categoria.dias_limite;
-            if (dia_devl <= 30) {
-              borrow.dt_devol = new Date(`${borrow.dt_empr.getMonth()+1}-${dia_devl}-${borrow.dt_empr.getFullYear()}`);
-              const emprestado = true;
-              await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado}});
-              const {acknowledged} = await this.collection.insertOne(borrow);
-              return acknowledged;
-
-            } else if (dia_devl > 30) {
-              const mes_devol = borrow.dt_empr.getMonth() + 2;
-              dia_devl -= 30;
-              borrow.dt_devol = new Date(`${mes_devol}-${dia_devl}-${borrow.dt_empr.getFullYear()}`);
-              const emprestado = true;
-              await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado}});
-              const {acknowledged} = await this.collection.insertOne(borrow);
-              return acknowledged;
-            }
-          } else {
-            return false;
-          }
-        }
-      }
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async deleteBorrow(id: string) {
     try {
       if (this.collection) {

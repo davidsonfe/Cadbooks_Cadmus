@@ -61,43 +61,6 @@ const borrowBodySchema = {
   },
 };
 
-const borrowUpdateSchema = {
-  body: {
-    type: 'object',
-    properties: {
-      dt_empr: {type: "string"},
-      dt_devol: {type: "string"},
-      doc_id: {type: "string"},
-      cpf: {type: "string"},
-      id_obra: {type: "string"},
-    },
-  },
-  querystring: {
-    doc_id: {type: 'string'},
-  },
-  required: ["doc_id", "cpf", "id_obra"],
-  response: {
-    200: {
-      type: 'object',
-      properties: {
-        msg: {type: "string"},
-      },
-    },
-    400: {
-      type: 'object',
-      properties: {
-        msg: {type: "string"}
-      },
-    },
-    404: {
-      type: 'object',
-      properties: {
-        msg: {type: "string"}
-      },
-    },
-  },
-};
-
 const borrowDeleteSchema = {
   querystring: {
     doc_id: {type: 'string'},
@@ -126,4 +89,4 @@ const borrowDeleteSchema = {
 };
 
 
-module.exports = {borrowSchema, borrowBodySchema, borrowUpdateSchema, borrowDeleteSchema};
+module.exports = {borrowSchema, borrowBodySchema, borrowDeleteSchema};
