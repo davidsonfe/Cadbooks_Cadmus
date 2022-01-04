@@ -33,7 +33,6 @@ const borrowBodySchema = {
     type: 'object',
     properties: {
       dt_empr: {type: "string"},
-      dt_devol: {type: "string"},
       doc_id: {type: "string"},
       cpf: {type: "string"},
       isn_id_cop: {type: "string"},
