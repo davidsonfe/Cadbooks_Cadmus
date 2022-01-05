@@ -24,7 +24,7 @@ export async function bookRoutes(fastify: typeof server) {
       }
     });
 
-  fastify.get("/books/findone:isn_id", {
+  fastify.get("/books/findone/:isn_id", {
       preValidation: [fastify.jwtauthentication],
       schema: schemas.bookSchema
     },
