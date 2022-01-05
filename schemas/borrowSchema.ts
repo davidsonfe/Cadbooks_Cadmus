@@ -97,7 +97,7 @@ const borrowReportSchema = {
         dt_devol: {type: "string"},
         nome: {type: "string"},
         titulo: {type: "string"},
-        categoria: {type: "object"},
+        categoria: {type: "string"},
       },
     },
     400: {
@@ -118,4 +118,4 @@ const borrowReportSchema = {
 
 
 
-module.exports = {borrowSchema, borrowBodySchema, borrowDeleteSchema};
+module.exports = {borrowSchema, borrowBodySchema, borrowDeleteSchema, borrowReportSchema};

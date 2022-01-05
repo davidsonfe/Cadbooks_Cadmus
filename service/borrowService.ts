@@ -85,10 +85,6 @@ export class BorrowService {
   }
 
   async getBorrowsReport() {
-    // O sistema deve permitir a impressão de uma listagem das obras emprestadas no momento,
-    // agrupadas por categoria de obra, contendo o nome do leitor, título da obra, data de retirada e
-    // data prevista para devolução.
-
       try {
       if (this.collection && this.collection2 && this.collection3) {
         const bks = await this.collection.find({}).project({_id:0}).toArray();
