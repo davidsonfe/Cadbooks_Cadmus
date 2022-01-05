@@ -20,39 +20,24 @@ export class DevolutionService {
       if (this.collection && this.collection2 && this.collection3) {
         const bk = await this.collection2.find({isn_id: isn_id_cop}).project({_id: 0}).toArray();
         const brrow = await this.collection3.find({isn_id_cop: isn_id_cop}).project({_id: 0}).toArray();
-        if (bk[0].emprestado) {
+        if (bk[0].emprestado || bk[0].reservado) {
           const emprestado = false;
-          devolution.dt_devol = new Date();
-          const borrow_date = brrow.dt;
-          const diff = Math.abs(devolution.dt_devol.getTime() - borrow_date.getTime());
-          const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-          if (days > brrow.categoria.dias_limite) {
-            const penalty = bk[0].categoria.multa * days;
-            await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado}})
-            const {acknowledged} = await this.collection.insertOne(devolution);
-            return {acknowledged, penalty};
-          }
-          await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado}})
-          const {acknowledged} = await this.collection.insertOne(devolution);
-          return { acknowledged, n:0};
-
-        } else if (bk[0].reservado) {
           const reservado = false;
           devolution.dt_devol = new Date();
-          const borrow_date = brrow.dt;
+          const borrow_date = brrow[0].dt_empr;
           const diff = Math.abs(devolution.dt_devol.getTime() - borrow_date.getTime());
           const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-          if (days > brrow.categoria.dias_limite) {
+          if (days > bk[0].categoria.dias_limite) {
             const penalty = bk[0].categoria.multa * days;
-            await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {reservado}})
-            const {acknowledged} = await this.collection.insertOne(devolution);
-            return {acknowledged, penalty};
+            await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado, reservado}})
+            await this.collection.insertOne(devolution);
+            return penalty;
           }
-          await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {reservado}})
-          const {acknowledged} = await this.collection.insertOne(devolution);
-          return { acknowledged, n:0};
+          await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado, reservado}})
+          await this.collection.insertOne(devolution);
+          return 0;
         } else {
-          return false;
+          return 0;
         }
       }
     } catch (error) {
