@@ -64,7 +64,10 @@ export class BorrowService {
               return acknowledged;
             }
           } else {
-            return false;
+            // Se tiver
+            // sido feita a reserva prévia da obra, então, durante o empréstimo, informa-se o nome do leitor e
+            // os dados da reserva são recuperados automaticamente pelo sistema;
+
           }
         }
       }
@@ -85,19 +88,18 @@ export class BorrowService {
   }
 
   async getBorrowsReport() {
-      try {
+    try {
       if (this.collection && this.collection2 && this.collection3) {
-        const bks = await this.collection.find({}).project({_id:0}).toArray();
+        const bks = await this.collection.find({}).project({_id: 0}).toArray();
         const brrws = Object();
         const dt = Array();
         for (let i = 0; i < bks.length; i++) {
           brrws["dt_empr"] = bks[i].dt_empr.toLocaleDateString("pt-BR");
           brrws["dt_devol"] = bks[i].dt_devol.toLocaleDateString("pt-BR");
-          brrws["nome"] = (await this.collection3.find({doc_id: bks[i].doc_id}).project({_id:0}).toArray())[0].nome;
-          brrws["titulo"] = (await this.collection2.find({isn_id: bks[i].isn_id_cop}).project({_id:0}).toArray())[0].titulo;
-          brrws["categoria"] = (await this.collection2.find({isn_id: bks[i].isn_id_cop})
-            .project({_id:0})
-            .toArray())[0]
+          brrws["nome"] = (await this.collection3.find({doc_id: bks[i].doc_id}).project({_id: 0}).toArray())[0].nome;
+          brrws["titulo"] = (await this.collection2.find({isn_id: bks[i].isn_id_cop}).project({_id: 0}).toArray())[0]
+            .titulo;
+          brrws["categoria"] = (await this.collection2.find({isn_id: bks[i].isn_id_cop}).project({_id: 0}).toArray())[0]
             .categoria.cat_id;
           dt.push(brrws);
         }

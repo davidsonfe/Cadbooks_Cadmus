@@ -115,7 +115,4 @@ const borrowReportSchema = {
   },
 };
 
-
-
-
 module.exports = {borrowSchema, borrowBodySchema, borrowDeleteSchema, borrowReportSchema};
