@@ -16,7 +16,7 @@ export class DevolutionService {
   async postDevolution(isn_id_cop: string, devolution: DevolutionModel) {
     try {
       if (this.collection && this.collection2) {
-        const bk = await this.collection2.find({isn_id: isn_id_cop}).project({_id:0}).toArray();
+        const bk = await this.collection2.find({isn_id: isn_id_cop}).project({_id: 0}).toArray();
         if (bk[0].emprestado) {
           const emprestado = false;
           await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado}});

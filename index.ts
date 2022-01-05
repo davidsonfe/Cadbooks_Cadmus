@@ -1,4 +1,5 @@
 import Fastify from "fastify";
+import {cors} from "./middleware/cors_middleware";
 import {mongoConnector} from "./db/mongoConnector";
 import {jwtConn} from "./middleware/auth_middleware_jwt";
 import {loginRoutes} from "./routes/loginRoutes";
@@ -19,13 +20,8 @@ config();
 const server = Fastify({logger: true});
 const swagger = require('./config/swagger');
 
-server.register(require('fastify-cors'), {
-  origin: '*',
-});
-server.register(require('fastify-jwt'), {
-  secret: `${process.env.SECRET}`
-});
-
+server.register(require('fastify-jwt'), {secret: `${process.env.SECRET}`});
+server.register(cors);
 server.register(mongoConnector);
 server.register(jwtConn);
 server.register(require('fastify-swagger'), swagger.options);

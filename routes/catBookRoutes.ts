@@ -10,7 +10,7 @@ export async function bookCatRoutes(fastify: typeof server) {
 
   fastify.get("/book_cat/findall", {
       preValidation: [fastify.jwtauthentication],
-      schema: schemas.catBookBodySchema
+      schema: schemas.catBookAllSchema
     },
     async (request: any, reply: any) => {
       try {
@@ -25,7 +25,7 @@ export async function bookCatRoutes(fastify: typeof server) {
 
   fastify.get("/book_cat/findone/:doc_id", {
       preValidation: [fastify.jwtauthentication],
-      schema: schemas.catBookBodySchema
+      schema: schemas.catBookOneSchema
     },
     async (request: any, reply: any) => {
       try {
@@ -70,7 +70,7 @@ export async function bookCatRoutes(fastify: typeof server) {
 
   fastify.delete("/book_cat/delete/:doc_id", {
       preValidation: [fastify.jwtauthentication],
-      schema: schemas.catBookBodySchema
+      schema: schemas.catBookUpDelSchema
     },
     async (request: any, reply: any) => {
       try {
