@@ -3,7 +3,7 @@ const devolutionBodySchema = {
     type: 'object',
     properties: {
       isn_id_cop: {type: "string"},
-      dt_devolucao: {type: "string"},
+      dt_devol: {type: "string"}
     },
   },
   required: ["isn_id_cop"],
