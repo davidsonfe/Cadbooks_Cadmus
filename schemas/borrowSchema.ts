@@ -88,5 +88,34 @@ const borrowDeleteSchema = {
   },
 };
 
+const borrowReportSchema = {
+  response: {
+    200: {
+      type: 'array',
+      properties: {
+        dt_empr: {type: "string"},
+        dt_devol: {type: "string"},
+        nome: {type: "string"},
+        titulo: {type: "string"},
+        categoria: {type: "object"},
+      },
+    },
+    400: {
+      type: 'object',
+      properties: {
+        msg: {type: "string"}
+      }
+    },
+    404: {
+      type: 'object',
+      properties: {
+        msg: {type: "string"}
+      },
+    },
+  },
+};
+
+
+
 
 module.exports = {borrowSchema, borrowBodySchema, borrowDeleteSchema};

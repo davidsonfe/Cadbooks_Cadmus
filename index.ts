@@ -1,4 +1,4 @@
-import Fastify from "fastify";
+import Fastify, {FastifyInstance} from "fastify";
 import {cors} from "./middleware/cors_middleware";
 import {mongoConnector} from "./db/mongoConnector";
 import {jwtConn} from "./middleware/auth_middleware_jwt";
@@ -17,7 +17,7 @@ import "fastify-jwt";
 
 
 config();
-const server = Fastify({logger: true});
+const server: FastifyInstance = Fastify({logger: true});
 const swagger = require('./config/swagger');
 
 server.register(require('fastify-jwt'), {secret: `${process.env.SECRET}`});
