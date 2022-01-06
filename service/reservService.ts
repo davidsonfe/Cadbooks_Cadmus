@@ -38,20 +38,22 @@ export class ReservService {
   async postReserv(reserva: ReservModel) {
     try {
       if (this.collection && this.collection2) {
-        const limite = (await this.collection2.find({isn_id: reserva.isn_id_cop}).project({_id: 0}).toArray())[0].categoria.dias_limite;
+        const limite = await this.collection2.find({isn_id: reserva.isn_id_cop}).project({_id: 0}).toArray();
+        if (!limite[0].reservado || !limite[0].emprestado) {
+          reserva.dt_ret = new Date();
+          reserva.dt_devol = new Date();
+          reserva.dt_reserva = new Date();
 
-        reserva.dt_ret = new Date();
-        reserva.dt_devol = new Date();
-        reserva.dt_reserva = new Date();
-
-        const r = reserva.dt_reserva.getDate() + 3;
-        reserva.dt_ret.setDate(r);
-        const s = reserva.dt_ret.getDate() + limite;
-        reserva.dt_devol.setDate(s);
-        const reservado = true;
-        await this.collection2.updateOne({isn_id: reserva.isn_id_cop}, {$set: {reservado}});
-        const {acknowledged} = await this.collection.insertOne(reserva);
-        return acknowledged;
+          const r = reserva.dt_reserva.getDate() + 3;
+          reserva.dt_ret.setDate(r);
+          const s = reserva.dt_ret.getDate() + limite;
+          reserva.dt_devol.setDate(s);
+          const reservado = true;
+          await this.collection2.updateOne({isn_id: reserva.isn_id_cop}, {$set: {reservado}});
+          const {acknowledged} = await this.collection.insertOne(reserva);
+          return acknowledged;
+        }
+        return false;
       }
     } catch (error) {
       throw error;
