@@ -1,6 +1,6 @@
 const reservSchema = {
   querystring: {
-    id_reserva: {type: 'string'},
+    isn_id_cop: {type: 'string'},
   },
   response: {
     200: {
@@ -33,7 +33,6 @@ const reservBodySchema = {
   body: {
     type: 'object',
     properties: {
-      id_reserva: {type: "string"},
       dt_reserva: {type: "string"},
       dt_ret: {type: "string"},
       dt_devol: {type: "string"},
@@ -42,46 +41,7 @@ const reservBodySchema = {
       cpf: {type: "string"},
     },
   },
-  required: ["id_reserva", "id_obra", "doc_id", "cpf"],
-  response: {
-    200: {
-      type: 'object',
-      properties: {
-        msg: {type: "string"},
-      },
-    },
-    400: {
-      type: 'object',
-      properties: {
-        msg: {type: "string"}
-      },
-    },
-    404: {
-      type: 'object',
-      properties: {
-        msg: {type: "string"}
-      },
-    },
-  },
-};
-
-const reservUpdateSchema = {
-  body: {
-    type: 'object',
-    properties: {
-      id_reserva: {type: "string"},
-      dt_reserva: {type: "string"},
-      dt_ret: {type: "string"},
-      dt_devol: {type: "string"},
-      isn_id_cop: {type: "string"},
-      doc_id: {type: "string"},
-      cpf: {type: "string"},
-    },
-  },
-  querystring: {
-    id_reserva: {type: 'string'},
-  },
-  required: ["id_reserva"],
+  required: ["isn_id_cop", "doc_id", "cpf"],
   response: {
     200: {
       type: 'object',
@@ -106,9 +66,9 @@ const reservUpdateSchema = {
 
 const reservDeleteSchema = {
   querystring: {
-    id_reserva: {type: 'string'},
+    isn_id_cop: {type: 'string'},
   },
-  required: ["id_reserva"],
+  required: ["isn_id_cop"],
   response: {
     200: {
       type: 'object',
@@ -131,4 +91,4 @@ const reservDeleteSchema = {
   },
 };
 
-module.exports = {reservSchema, reservBodySchema, reservUpdateSchema, reservDeleteSchema};
+module.exports = {reservSchema, reservBodySchema, reservDeleteSchema};
