@@ -6,7 +6,6 @@ const reservSchema = {
     200: {
       type: 'array',
       properties: {
-        id_reserva: {type: "string"},
         dt_reserva: {type: "string"},
         dt_ret: {type: "string"},
         dt_devol: {type: "string"},

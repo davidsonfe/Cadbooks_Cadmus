@@ -1,5 +1,4 @@
 export class ReservModel {
-  id_reserva: string;
   dt_reserva: Date;
   dt_ret: Date;
   dt_devol: Date;
