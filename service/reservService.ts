@@ -38,16 +38,18 @@ export class ReservService {
   async postReserv(reserva: ReservModel) {
     try {
       if (this.collection && this.collection2) {
-        const bk = await this.collection2.find({isn_id: reserva.isn_id_cop}).project({_id:0}).toArray();
-        if (bk[0].emprestado == false && bk[0].reservado == false) {
-          const {dt_ret, dt_devol, dt_reserva} = reserva;
-          reserva.dt_ret = new Date(dt_ret);
-          reserva.dt_devol = new Date(dt_devol);
-          reserva.dt_reserva = new Date(dt_reserva);
-          const {acknowledged} = await this.collection.insertOne(reserva);
-          return acknowledged;
-        }
-        return false;
+        const limite = (await this.collection2.find({isn_id: reserva.isn_id_cop}).project({_id: 0}).toArray())[0].categoria.dias_limite;
+
+        reserva.dt_ret = new Date();
+        reserva.dt_devol = new Date();
+        reserva.dt_reserva = new Date();
+
+        const r = reserva.dt_reserva.getDate() + 3;
+        reserva.dt_ret.setDate(r);
+        const s = reserva.dt_ret.getDate() + limite;
+        reserva.dt_devol.setDate(s);
+        const {acknowledged} = await this.collection.insertOne(reserva);
+        return acknowledged;
       }
     } catch (error) {
       throw error;
@@ -56,11 +58,17 @@ export class ReservService {
 
   async updateReserv(id: string, reserva: ReservModel) {
     try {
-      if (this.collection) {
-        const {dt_ret, dt_devol, dt_reserva} = reserva;
-        reserva.dt_ret = new Date(dt_ret);
-        reserva.dt_devol = new Date(dt_devol);
-        reserva.dt_reserva = new Date(dt_reserva);
+      if (this.collection && this.collection2) {
+        const lmt = (await this.collection2.find({isn_id: reserva.isn_id_cop}).project({_id: 0}).toArray())[0].categoria.dias_limite;
+
+        reserva.dt_ret = new Date();
+        reserva.dt_devol = new Date();
+        reserva.dt_reserva = new Date();
+
+        const d = reserva.dt_reserva.getDate() + 3;
+        reserva.dt_ret.setDate(d);
+        const c = reserva.dt_ret.getDate() + lmt;
+        reserva.dt_devol.setDate(c);
         const {acknowledged} = await this.collection.updateOne({id_reserva: id}, {$set: {...reserva}});
         return acknowledged;
       }

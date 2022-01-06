@@ -1,7 +1,6 @@
 import {DevolutionService} from "../service/devolutionService";
 import {DevolutionModel} from "../models/devolutionModel";
 import fastifyPlugin from "fastify-plugin";
-import {isNumber} from "util";
 import {isNumberObject} from "util/types";
 
 const schemas = require("../schemas/devolutionSchema");
