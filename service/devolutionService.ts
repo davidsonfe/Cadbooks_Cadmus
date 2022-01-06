@@ -20,7 +20,7 @@ export class DevolutionService {
       if (this.collection && this.collection2 && this.collection3) {
         const bk = await this.collection2.find({isn_id: isn_id_cop}).project({_id: 0}).toArray();
         const brrow = await this.collection3.find({isn_id_cop: isn_id_cop}).project({_id: 0}).toArray();
-        if (bk[0].emprestado || bk[0].reservado) {
+        if (bk[0].emprestado) {
           const emprestado = false;
           const reservado = false;
           devolution.dt_devol = new Date();
