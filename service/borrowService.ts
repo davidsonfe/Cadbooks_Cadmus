@@ -28,8 +28,9 @@ export class BorrowService {
             let dia_devol = borrow.dt_empr.getDate() + limite[0].categoria.dias_limite;
             if (dia_devol <= 30) {
               borrow.dt_devol = new Date(`${borrow.dt_empr.getMonth() + 1}-${dia_devol}-${borrow.dt_empr.getFullYear()}`);
+              const reservado = false;
               const emprestado = true;
-              await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado}});
+              await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado, reservado}});
               const {acknowledged} = await this.collection.insertOne(borrow);
               return acknowledged;
 
@@ -37,8 +38,9 @@ export class BorrowService {
               const mes_devol = borrow.dt_empr.getMonth() + 2;
               dia_devol -= 30;
               borrow.dt_devol = new Date(`${mes_devol}-${dia_devol}-${borrow.dt_empr.getFullYear()}`);
+              const reservado = false;
               const emprestado = true;
-              await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado}});
+              await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado, reservado}});
               const {acknowledged} = await this.collection.insertOne(borrow);
               return acknowledged;
             }
