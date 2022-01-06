@@ -63,21 +63,6 @@ export async function reserveRoutes(fastify: typeof server) {
       }
     });
 
-  fastify.put("/reserv/update/:id_reserva", {
-      preValidation: [fastify.jwtauthentication],
-      schema: schemas.reservUpdateSchema
-    },
-    async (request: any, reply: any) => {
-      try {
-        const verify = await reserv.updateReserv(request.params.id_reserva, request.body as ReservModel);
-        if (verify)
-          return reply.status(200).send({msg: "Reserva atualizada."});
-        reply.status(400).send({msg: "Verique os campos e tente novamente."});
-      } catch (err) {
-        reply.status(500).send({err});
-      }
-    });
-
   fastify.delete("/reserv/delete/:id_reserva", {
       preValidation: [fastify.jwtauthentication],
       schema: schemas.reservDeleteSchema
