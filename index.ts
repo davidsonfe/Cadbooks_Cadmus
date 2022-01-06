@@ -10,22 +10,19 @@ import {catBookRoutes} from "./routes/catBookRoutes";
 import {reservRoutes} from "./routes/reservRoutes";
 import {borrowRoutes} from "./routes/borrowRoutes";
 import {devolutionRoutes} from "./routes/devolutionRoutes";
+import {cors} from "./middleware/cors_middleware";
 import {config} from "dotenv";
 import "fastify-mongodb";
 import "fastify-jwt";
+
 
 
 config();
 const server: FastifyInstance = Fastify({logger: true});
 const swagger = require('./config/swagger');
 
-server.register(require('fastify-cors'), {
-  origin: '*',
-});
-server.register(require('fastify-jwt'), {
-  secret: `${process.env.SECRET}`
-});
-
+server.register(cors);
+server.register(require('fastify-jwt'), {secret: `${process.env.SECRET}`});
 server.register(mongoConnector);
 server.register(jwtConn);
 server.register(require('fastify-swagger'), swagger.options);

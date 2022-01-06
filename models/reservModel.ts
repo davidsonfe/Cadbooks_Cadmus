@@ -5,4 +5,5 @@ export class ReservModel {
   doc_id: string;
   isn_id_cop: string;
   cpf: string;
+  reservado: boolean;
 }

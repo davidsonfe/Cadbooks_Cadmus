@@ -39,6 +39,7 @@ const reservBodySchema = {
       isn_id_cop: {type: "string"},
       doc_id: {type: "string"},
       cpf: {type: "string"},
+      reservado: {type:"boolean"}
     },
   },
   required: ["isn_id_cop", "doc_id", "cpf"],

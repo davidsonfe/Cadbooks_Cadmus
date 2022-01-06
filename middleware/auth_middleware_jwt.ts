@@ -9,7 +9,6 @@ async function jwtAuth(fastify: FastifyInstance) {
     } catch (error) {
       rep.send(error);
     }
-
   });
 }
 

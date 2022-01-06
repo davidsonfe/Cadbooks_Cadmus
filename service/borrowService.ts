@@ -7,18 +7,20 @@ export class BorrowService {
   collection;
   collection2;
   collection3;
+  collection4;
 
-  constructor(fastify: FastifyInstance, collection: string, collection2: string, collection3: string) {
+  constructor(fastify: FastifyInstance, collection: string, collection2: string, collection3: string, collection4: string) {
     if (fastify.mongo.db) {
       this.collection = fastify.mongo.db.collection(collection);
       this.collection2 = fastify.mongo.db.collection(collection2);
       this.collection3 = fastify.mongo.db.collection(collection3);
+      this.collection4 = fastify.mongo.db.collection(collection4);
     }
   }
 
   async postBorrow(borrow: BorrowModel) {
     try {
-      if (this.collection && this.collection2 && this.collection3) {
+      if (this.collection && this.collection2 && this.collection3 && this.collection4) {
         borrow.dt_empr = new Date();
         const limite = await this.collection2.find({isn_id: borrow.isn_id_cop}).project({_id: 0}).toArray();
         const userExist = await this.collection3.find({doc_id: borrow.doc_id}).project({_id: 0}).toArray();
@@ -30,6 +32,7 @@ export class BorrowService {
               const reservado = false;
               const emprestado = true;
               await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado, reservado}});
+              await this.collection4.updateOne({isn_id_cop: borrow.isn_id_cop}, {$set: {reservado}});
               const {acknowledged} = await this.collection.insertOne(borrow);
               return acknowledged;
 
@@ -40,6 +43,7 @@ export class BorrowService {
               const reservado = false;
               const emprestado = true;
               await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado, reservado}});
+              await this.collection4.updateOne({isn_id_cop: borrow.isn_id_cop}, {$set: {reservado}});
               const {acknowledged} = await this.collection.insertOne(borrow);
               return acknowledged;
             }

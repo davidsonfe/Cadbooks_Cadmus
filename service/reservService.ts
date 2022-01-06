@@ -46,11 +46,10 @@ export class ReservService {
           reserva.dt_ret = new Date();
           reserva.dt_devol = new Date();
           reserva.dt_reserva = new Date();
+          reserva.reservado = true;
+          reserva.dt_ret.setDate(reserva.dt_reserva.getDate() + 3);
+          reserva.dt_devol.setDate(reserva.dt_ret.getDate() + limite[0].categoria.dias_limite);
 
-          const r = reserva.dt_reserva.getDate() + 3;
-          reserva.dt_ret.setDate(r);
-          const s = reserva.dt_ret.getDate() + limite[0].categoria.dias_limite;
-          reserva.dt_devol.setDate(s);
           const reservado = true;
           await this.collection2.updateOne({isn_id: reserva.isn_id_cop}, {$set: {reservado}});
           const {acknowledged} = await this.collection.insertOne(reserva);

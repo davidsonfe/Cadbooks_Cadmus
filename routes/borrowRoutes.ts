@@ -6,7 +6,7 @@ const schemas = require("../schemas/borrowSchema");
 const server = require("../index");
 
 export async function borrowwRoutes(fastify: typeof server) {
-  const borrow: BorrowService = new BorrowService(fastify, "emprestimo", "livros", "leitores");
+  const borrow: BorrowService = new BorrowService(fastify, "emprestimo", "livros", "leitores", "reserva");
 
   fastify.post("/borrow/register", {
       preValidation: [fastify.jwtauthentication],
