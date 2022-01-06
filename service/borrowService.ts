@@ -43,9 +43,6 @@ export class BorrowService {
               return acknowledged;
             }
           } else {
-            // Se tiver
-            // sido feita a reserva prévia da obra, então, durante o empréstimo, informa-se o nome do leitor e
-            // os dados da reserva são recuperados automaticamente pelo sistema;
             return false;
           }
         }
