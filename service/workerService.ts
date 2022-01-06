@@ -1,6 +1,7 @@
 import {WorkerModel} from "../models/workerModel";
 import {FastifyInstance} from "fastify";
 import "fastify-mongodb";
+import {validateCPF} from "../validations/validateCPF";
 
 const bcrypt = require("bcrypt");
 
@@ -25,7 +26,7 @@ export class WorkerService {
   async getWorker(id: string) {
     try {
       if (this.collection) {
-        const worker = await this.collection.find({cpf: id}).project({_id: 0, passwd: 0, token:0}).toArray();
+        const worker = await this.collection.find({cpf: id}).project({_id: 0, passwd: 0, token: 0}).toArray();
         if (Array.isArray(worker) && worker.length > 0)
           return worker;
       }
@@ -41,8 +42,11 @@ export class WorkerService {
         const {dt_nasc} = worker;
         worker.dt_nasc = new Date(dt_nasc);
         worker.passwd = await bcrypt.hash(worker.passwd, 10);
-        const {acknowledged} = await this.collection.insertOne(worker);
-        return acknowledged;
+        if (validateCPF(worker.cpf)) {
+          const {acknowledged} = await this.collection.insertOne(worker);
+          return acknowledged;
+        }
+        return false;
       }
     } catch (error) {
       throw error;
@@ -54,7 +58,7 @@ export class WorkerService {
       if (this.collection) {
         const {dt_nasc} = worker;
         worker.dt_nasc = new Date(dt_nasc);
-        const {acknowledged} =  await this.collection.updateOne({cpf: id}, {$set: {...worker}});
+        const {acknowledged} = await this.collection.updateOne({cpf: id}, {$set: {...worker}});
         return acknowledged;
       }
     } catch (error) {
