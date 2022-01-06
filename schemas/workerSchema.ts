@@ -59,6 +59,7 @@ const workerBodySchema = {
       dt_nasc: {type: "string"},
       cpf: {type: "string"},
       passwd: {type: "string"},
+      admin: {type: "boolean"}
     },
     response: {
       200: {

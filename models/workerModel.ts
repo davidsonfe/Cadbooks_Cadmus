@@ -7,4 +7,5 @@ export class WorkerModel {
   dt_nasc: Date;
   cpf: string;
   passwd: string;
+  admin: boolean;
 }
