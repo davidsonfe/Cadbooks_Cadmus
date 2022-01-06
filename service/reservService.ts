@@ -26,7 +26,7 @@ export class ReservService {
   async getReserv(id: string) {
     try {
       if (this.collection) {
-        const reserv = await this.collection.find({id_reserva: id}).project({_id: 0}).toArray();
+        const reserv = await this.collection.find({isn_id_cop: id}).project({_id: 0}).toArray();
         if (Array.isArray(reserv) && reserv.length > 0)
           return reserv;
       }
