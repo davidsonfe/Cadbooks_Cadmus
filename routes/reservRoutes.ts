@@ -6,7 +6,7 @@ const schemas = require("../schemas/reservSchema");
 const server = require("../index");
 
 export async function reserveRoutes(fastify: typeof server) {
-  const reserv: ReservService = new ReservService(fastify, "reserva", "livros");
+  const reserv: ReservService = new ReservService(fastify, "reserva", "livros", "leitores");
 
   fastify.get("/reserv/findall", {
       preValidation: [fastify.jwtauthentication],

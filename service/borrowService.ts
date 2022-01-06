@@ -18,11 +18,11 @@ export class BorrowService {
 
   async postBorrow(borrow: BorrowModel) {
     try {
-      if (this.collection && this.collection2) {
+      if (this.collection && this.collection2 && this.collection3) {
         borrow.dt_empr = new Date();
         const limite = await this.collection2.find({isn_id: borrow.isn_id_cop}).project({_id: 0}).toArray();
-
-        if (Array.isArray(limite) && limite.length > 0) {
+        const userExist = await this.collection3.find({doc_id: borrow.doc_id}).project({_id: 0}).toArray();
+        if (Array.isArray(limite) && userExist.length > 0) {
           if (limite[0].reservado && !limite[0].emprestado) {
             let dia_devol = borrow.dt_empr.getDate() + limite[0].categoria.dias_limite;
             if (dia_devol <= 30) {
@@ -55,21 +55,21 @@ export class BorrowService {
 
   async getBorrowsReport() {
     try {
-      if (this.collection && this.collection2 && this.collection3) {
-        const bks = await this.collection.find({}).project({_id: 0}).toArray();
-        const brrws = Object();
-        const dt = Array();
-        for (let i = 0; i < bks.length; i++) {
-          brrws["dt_empr"] = bks[i].dt_empr.toLocaleDateString("pt-BR");
-          brrws["dt_devol"] = bks[i].dt_devol.toLocaleDateString("pt-BR");
-          brrws["nome"] = (await this.collection3.find({doc_id: bks[i].doc_id}).project({_id: 0}).toArray())[0].nome;
-          brrws["titulo"] = (await this.collection2.find({isn_id: bks[i].isn_id_cop}).project({_id: 0}).toArray())[0]
-            .titulo;
-          brrws["categoria"] = (await this.collection2.find({isn_id: bks[i].isn_id_cop}).project({_id: 0}).toArray())[0]
-            .categoria.cat_id;
-          dt.push(brrws);
+      if (this.collection && this.collection2) {
+        if (this.collection3) {
+          const bks = await this.collection.find({}).project({_id: 0}).toArray();
+          const brrws = Object();
+          const dt = Array();
+          for (let i = 0; i < bks.length; i++) {
+            brrws["dt_empr"] = bks[i].dt_empr.toLocaleDateString("pt-BR");
+            brrws["dt_devol"] = bks[i].dt_devol.toLocaleDateString("pt-BR");
+            brrws["nome"] = (await this.collection3.find({doc_id: bks[i].doc_id}).project({_id: 0}).toArray())[0].nome;
+            brrws["titulo"] = (await this.collection2.find({isn_id: bks[i].isn_id_cop}).project({_id: 0}).toArray())[0].titulo;
+            brrws["categoria"] = (await this.collection2.find({isn_id: bks[i].isn_id_cop}).project({_id: 0}).toArray())[0].categoria.cat_id;
+            dt.push(brrws);
+          }
+          return dt;
         }
-        return dt;
       }
     } catch (error) {
       throw error;

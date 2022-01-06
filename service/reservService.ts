@@ -6,11 +6,13 @@ import "fastify-mongodb";
 export class ReservService {
   collection;
   collection2;
+  collection3;
 
-  constructor(fastify: FastifyInstance, collection: string, collection2: string) {
+  constructor(fastify: FastifyInstance, collection: string, collection2: string, collection3: string) {
     if (fastify.mongo.db) {
       this.collection = fastify.mongo.db.collection(collection);
       this.collection2 = fastify.mongo.db.collection(collection2);
+      this.collection3 = fastify.mongo.db.collection(collection3);
     }
   }
 
@@ -37,9 +39,10 @@ export class ReservService {
 
   async postReserv(reserva: ReservModel) {
     try {
-      if (this.collection && this.collection2) {
+      if (this.collection && this.collection2 && this.collection3) {
         const limite = await this.collection2.find({isn_id: reserva.isn_id_cop}).project({_id: 0}).toArray();
-        if(!limite[0].emprestado && !limite[0].reservado) {
+        const userExist = await this.collection3.find({doc_id: reserva.doc_id}).project({_id: 0}).toArray();
+        if(!limite[0].emprestado && !limite[0].reservado && userExist.length > 0) {
           reserva.dt_ret = new Date();
           reserva.dt_devol = new Date();
           reserva.dt_reserva = new Date();

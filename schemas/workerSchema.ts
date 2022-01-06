@@ -47,7 +47,7 @@ const workersSchema = {
   },
 };
 
-const workerBodySchema = {
+const workerRegisterSchema = {
   body: {
     type: 'object',
     properties: {
@@ -60,42 +60,6 @@ const workerBodySchema = {
       cpf: {type: "string"},
       passwd: {type: "string"},
       admin: {type: "boolean"}
-    },
-    response: {
-      200: {
-        type: 'object',
-        properties: {
-          msg: {type: "string"},
-        },
-      },
-      400: {
-        type: 'object',
-        properties: {
-          msg: {type: "string"}
-        },
-      },
-      404: {
-        type: 'object',
-        properties: {
-          msg: {type: "string"}
-        },
-      },
-    },
-  },
-};
-
-const workerRegisterSchema = {
-  body: {
-    type: 'object',
-    properties: {
-      nome: {type: "string"},
-      endereco: {type: "string"},
-      cidade: {type: "string"},
-      estado: {type: "string"},
-      tel: {type: "string"},
-      dt_nasc: {type: "string"},
-      cpf: {type: "string"},
-      passwd: {type: "string"}
     },
   },
   required: ["cpf"],
@@ -132,7 +96,8 @@ const workerUpdateSchema = {
       tel: {type: "string"},
       dt_nasc: {type: "string"},
       cpf: {type: "string"},
-      passwd: {type: "string"}
+      passwd: {type: "string"},
+      admin: {type: "boolean"}
     },
   },
   querystring: {
@@ -192,4 +157,4 @@ const workerDeleteSchema = {
 };
 
 
-module.exports = {workersAllSchema, workersSchema, workerBodySchema, workerRegisterSchema, workerUpdateSchema, workerDeleteSchema};
+module.exports = {workersAllSchema, workersSchema, workerRegisterSchema, workerUpdateSchema, workerDeleteSchema};
