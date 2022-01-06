@@ -1,5 +1,5 @@
 import {ReaderService} from "../service/readerService";
-import {CatReaderModel} from "../models/readerModel";
+import {ReaderModel} from "../models/readerModel";
 import fastifyPlugin from "fastify-plugin";
 
 const schemas = require("../schemas/readersSchema");
@@ -50,7 +50,7 @@ export async function clientRoutes(fastify: typeof server) {
     },
     async (request: any, reply: any) => {
       try {
-        const verify = await reader.postReader(request.body as CatReaderModel);
+        const verify = await reader.postReader(request.body as ReaderModel);
         if (verify)
           return reply.status(200).send({msg: "Leitor cadastrado com sucesso."});
         reply.status(400).send({msg: "Verique os campos e tente novamente."});
@@ -65,7 +65,7 @@ export async function clientRoutes(fastify: typeof server) {
     },
     async (request: any, reply: any) => {
       try {
-        const verify = await reader.updateReader(request.params.doc_id, request.body as CatReaderModel);
+        const verify = await reader.updateReader(request.params.doc_id, request.body as ReaderModel);
         if (verify)
           return reply.status(200).send({msg: "Leitor atualizado."});
         reply.status(400).send({msg: "Verique os campos e tente novamente."});
