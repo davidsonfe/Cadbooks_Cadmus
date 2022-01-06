@@ -4,7 +4,7 @@ type cat = {
   dias_limite: number;
 }
 
-export class CatReaderModel {
+export class ReaderModel {
   nome: string;
   endereco: string;
   cidade: string;

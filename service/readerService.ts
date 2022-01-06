@@ -1,6 +1,7 @@
-import {CatReaderModel} from "../models/readerModel";
+import {ReaderModel} from "../models/readerModel";
 import {FastifyInstance} from "fastify";
 import "fastify-mongodb";
+import { validateCPF } from "../validations/validateCPF";
 
 
 export class ReaderService {
@@ -34,20 +35,23 @@ export class ReaderService {
     }
   }
 
-  async postReader(leitor: CatReaderModel) {
+  async postReader(reader: ReaderModel) {
     try {
       if (this.collection) {
-        const {dt_nasc} = leitor;
-        leitor.dt_nasc = new Date(dt_nasc);
-        const {acknowledged} = await this.collection.insertOne(leitor);
-        return acknowledged;
+        const {dt_nasc} = reader;
+        reader.dt_nasc = new Date(dt_nasc);
+        if (validateCPF(reader.doc_id)) {
+          const {acknowledged} = await this.collection.insertOne(reader);
+          return acknowledged;
+        }
+        return false;
       }
     } catch (error) {
       throw error;
     }
   }
 
-  async updateReader(id: string, leitor: CatReaderModel) {
+  async updateReader(id: string, leitor: ReaderModel) {
     try {
       if (this.collection) {
         const {dt_nasc} = leitor;
