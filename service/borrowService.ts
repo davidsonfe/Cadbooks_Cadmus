@@ -19,8 +19,7 @@ export class BorrowService {
   async postBorrow(borrow: BorrowModel) {
     try {
       if (this.collection && this.collection2) {
-        const {dt_empr} = borrow;
-        borrow.dt_empr = new Date(dt_empr);
+        borrow.dt_empr = new Date();
         const limite = await this.collection2.find({isn_id: borrow.isn_id_cop}).project({_id: 0}).toArray();
 
         if (Array.isArray(limite) && limite.length > 0) {
