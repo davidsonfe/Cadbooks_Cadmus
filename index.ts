@@ -21,11 +21,12 @@ config();
 const server: FastifyInstance = Fastify({logger: true});
 const swagger = require('./config/swagger');
 
-server.register(cors);
 server.register(require('fastify-jwt'), {secret: `${process.env.SECRET}`});
+server.register(require('fastify-swagger'), swagger.options);
+
+server.register(cors);
 server.register(mongoConnector);
 server.register(jwtConn);
-server.register(require('fastify-swagger'), swagger.options);
 server.register(loginRoutes);
 server.register(workerRoutes);
 server.register(readersRoutes);
