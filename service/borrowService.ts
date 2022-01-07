@@ -40,9 +40,9 @@ export class BorrowService {
               const mes_devol = borrow.dt_empr.getMonth() + 2;
               dia_devol -= 30;
               borrow.dt_devol = new Date(`${mes_devol}-${dia_devol}-${borrow.dt_empr.getFullYear()}`);
-              const reservad = false;
+              const reservado = false;
               const emprestado = true;
-              await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado, reservad}});
+              await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado, reservado}});
               await this.collection4.deleteOne({isn_id_cop: borrow.isn_id_cop});
               const {acknowledged} = await this.collection.insertOne(borrow);
               return acknowledged;
