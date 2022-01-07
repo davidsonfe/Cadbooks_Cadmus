@@ -57,7 +57,7 @@ export class ReaderService {
         const {dt_nasc} = reader;
         reader.dt_nasc = new Date(dt_nasc);
         if (validateCPF(reader.doc_id)) {
-          const {acknowledged} = await this.collection.insertOne(reader);
+          const {acknowledged} = await this.collection.updateOne({doc_id: id}, {$set: {...reader}});
           return acknowledged;
         }
       }
