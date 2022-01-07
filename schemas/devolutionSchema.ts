@@ -11,7 +11,7 @@ const devolutionBodySchema = {
     200: {
       type: 'object',
       properties: {
-        msg: {type: "number"}
+        penalty: {type: "number"}
       },
     },
     400: {

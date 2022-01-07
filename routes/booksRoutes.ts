@@ -6,7 +6,7 @@ const schemas = require("../schemas/bookSchema");
 const server = require("../index");
 
 export async function bookRoutes(fastify: typeof server) {
-  const books: BookService = new BookService(fastify, "livros");
+  const books: BookService = new BookService(fastify, "livros", "emprestimo", "leitores");
 
   fastify.get("/books/findall", {
       preValidation: [fastify.jwtauthentication],
@@ -80,6 +80,21 @@ export async function bookRoutes(fastify: typeof server) {
         if (verify)
           return reply.status(200).send({msg: "Livro removido."});
         reply.status(400).send({msg: "Verique os campos e tente novamente."});
+      } catch (err) {
+        reply.status(500).send({msg: err});
+      }
+    });
+
+  fastify.get("/books/report", {
+      preValidation: [fastify.jwtauthentication],
+      schema: schemas.bookSchema
+    },
+    async (request: any, reply: any) => {
+      try {
+        const bk = await books.getBookReport();
+        if (Array.isArray(bk) && bk.length > 0)
+          return bk;
+        reply.status(404).send({msg: "Livro não encontrado."});
       } catch (err) {
         reply.status(500).send({msg: err});
       }
