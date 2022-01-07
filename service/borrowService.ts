@@ -31,9 +31,8 @@ export class BorrowService {
               borrow.dt_devol = new Date(`${borrow.dt_empr.getMonth() + 1}-${dia_devol}-${borrow.dt_empr.getFullYear()}`);
               const reservado = false;
               const emprestado = true;
-              await this.collection.deleteOne({isn_id_cop: borrow.isn_id_cop});
               await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado, reservado}});
-              await this.collection4.updateOne({isn_id_cop: borrow.isn_id_cop}, {$set: {reservado}});
+              await this.collection4.deleteOne({isn_id_cop: borrow.isn_id_cop});
               const {acknowledged} = await this.collection.insertOne(borrow);
               return acknowledged;
 
@@ -43,9 +42,8 @@ export class BorrowService {
               borrow.dt_devol = new Date(`${mes_devol}-${dia_devol}-${borrow.dt_empr.getFullYear()}`);
               const reservad = false;
               const emprestado = true;
-              await this.collection.deleteOne({isn_id_cop: borrow.isn_id_cop});
               await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado, reservad}});
-              await this.collection4.updateOne({isn_id_cop: borrow.isn_id_cop}, {$set: {reservad}});
+              await this.collection4.deleteOne({isn_id_cop: borrow.isn_id_cop});
               const {acknowledged} = await this.collection.insertOne(borrow);
               return acknowledged;
             }
