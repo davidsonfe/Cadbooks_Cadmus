@@ -61,7 +61,7 @@ export class BorrowService {
     try {
       if (this.collection && this.collection2) {
         if (this.collection3) {
-          const bks = await this.collection.find({emprestado: true}).project({_id: 0}).toArray();
+          const bks = await this.collection2.find({emprestado: true}).project({_id: 0}).toArray();
           const brrws = Object();
           const dt = Array();
           for (let i = 0; i < bks.length; i++) {
