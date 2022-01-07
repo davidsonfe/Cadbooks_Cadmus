@@ -19,12 +19,11 @@ export class DevolutionService {
     try {
       if (this.collection && this.collection2 && this.collection3) {
         const bk = await this.collection2.find({isn_id: isn_id_cop}).project({_id: 0}).toArray();
-        const brrow = await this.collection3.find({isn_id_cop: isn_id_cop}).project({_id: 0}).toArray();
+        const brrow = (await this.collection3.find({isn_id_cop: isn_id_cop}).project({_id: 0}).toArray())[0].dt_empr;
         if (bk[0].emprestado) {
           const emprestado = false;
           devolution.dt_devol = new Date();
-          const borrow_date = brrow[0].dt_empr;
-          const diff = Math.abs(devolution.dt_devol.getTime() - borrow_date.getTime());
+          const diff = Math.abs(devolution.dt_devol.getTime() - brrow.getTime());
           const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
           if (days > bk[0].categoria.dias_limite) {
             const penalty = bk[0].categoria.multa * days;
