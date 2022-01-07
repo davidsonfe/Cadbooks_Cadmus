@@ -32,7 +32,7 @@ export class BorrowService {
               const reservado = false;
               const emprestado = true;
               await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado, reservado}});
-              await this.collection4.delete({isn_id_cop: borrow.isn_id_cop});
+              await this.collection4.deleteOne({isn_id_cop: borrow.isn_id_cop});
               const {acknowledged} = await this.collection.insertOne(borrow);
               return acknowledged;
 
@@ -43,7 +43,7 @@ export class BorrowService {
               const reservad = false;
               const emprestado = true;
               await this.collection2.updateOne({isn_id: borrow.isn_id_cop}, {$set: {emprestado, reservad}});
-              await this.collection4.delete({isn_id_cop: borrow.isn_id_cop});
+              await this.collection4.deleteOne({isn_id_cop: borrow.isn_id_cop});
               const {acknowledged} = await this.collection.insertOne(borrow);
               return acknowledged;
             }
