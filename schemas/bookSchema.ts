@@ -120,4 +120,27 @@ const bookDeleteSchema = {
   }
 };
 
-module.exports = {bookSchema, bookBodySchema, bookUpdateSchema, bookDeleteSchema};
+const bookReportSchema = {
+
+  response: {
+    200: {
+      type: 'array',
+      properties: {
+        nome: {type: "string"},
+        tel: {type: "string"},
+        email: {type: "string"},
+        dt_empr: {type: "string"},
+        dt_devol: {type: "string"},
+      },
+    },
+    404: {
+      type: 'object',
+      properties: {
+        msg: {type: "string"}
+      }
+    }
+  }
+};
+
+
+module.exports = {bookSchema, bookBodySchema, bookUpdateSchema, bookDeleteSchema, bookReportSchema};

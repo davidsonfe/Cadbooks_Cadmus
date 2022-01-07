@@ -87,7 +87,7 @@ export async function bookRoutes(fastify: typeof server) {
 
   fastify.get("/books/report", {
       preValidation: [fastify.jwtauthentication],
-      schema: schemas.bookSchema
+      schema: schemas.bookReportSchema
     },
     async (request: any, reply: any) => {
       try {
