@@ -42,7 +42,7 @@ export class ReservService {
       if (this.collection && this.collection2 && this.collection3) {
         const limite = await this.collection2.find({isn_id: reserva.isn_id_cop}).project({_id: 0}).toArray();
         const userExist = (await this.collection3.find({doc_id: reserva.doc_id}).project({_id: 0}).toArray())[0].doc_id;
-        if(!limite[0].emprestado && !limite[0].reservado && userExist.length > 8) {
+        if (!limite[0].emprestado && !limite[0].reservado && userExist.length > 8) {
           reserva.dt_ret = new Date();
           reserva.dt_devol = new Date();
           reserva.dt_reserva = new Date();
@@ -69,6 +69,33 @@ export class ReservService {
         await this.collection2.updateOne({isn_id: id}, {$set: {reservado}});
         const {acknowledged} = await this.collection.deleteOne({isn_id_cop: id});
         return acknowledged;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getReservsReport() {
+    try {
+      if (this.collection && this.collection2 && this.collection3) {
+        const brws = await this.collection.find({}).project({_: 0}).toArray();
+        const unit = Object();
+        const report = Array();
+        const today = new Date();
+        for (let i = 0; i < brws.length; i++) {
+          if (brws[i].dt_reserva.getDate() == today.getDate() && brws[i].dt_reserva.getMonth() == today.getMonth()) {
+            unit["nome"] = (await this.collection3.find({doc_id: brws[i].doc_id}).project({_id: 0})
+              .toArray())[0].nome;
+            unit["tel"] = (await this.collection3.find({doc_id: brws[i].doc_id}).project({_id: 0})
+              .toArray())[0].tel;
+            unit["email"] = (await this.collection3.find({doc_id: brws[i].doc_id}).project({_id: 0})
+              .toArray())[0].email;
+            unit["titulo"] = (await this.collection2.find({isn_id: brws[i].isn_id_cop}).project({_id: 0})
+              .toArray())[0].titulo;
+            report.push(unit);
+          }
+        }
+        return report;
       }
     } catch (error) {
       throw error;

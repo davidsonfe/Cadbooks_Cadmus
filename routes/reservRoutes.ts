@@ -77,6 +77,21 @@ export async function reserveRoutes(fastify: typeof server) {
         reply.status(500).send({err});
       }
     });
+
+  fastify.get("/reserv/report", {
+      preValidation: [fastify.jwtauthentication],
+      schema: schemas.reservReportSchema
+    },
+    async (request: any, reply: any) => {
+      try {
+        const reservs = await reserv.getReservsReport();
+        if (Array.isArray(reservs) && reservs.length > 0)
+          return reservs;
+        reply.status(404).send({msg: "Nenhuma reserva encontrada."});
+      } catch (err) {
+        reply.status(500).send({err});
+      }
+    });
 }
 
 const reservRoutes = fastifyPlugin(reserveRoutes);

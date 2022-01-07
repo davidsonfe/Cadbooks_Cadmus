@@ -92,4 +92,30 @@ const reservDeleteSchema = {
   },
 };
 
-module.exports = {reservSchema, reservBodySchema, reservDeleteSchema};
+const reservReportSchema = {
+  response: {
+    200: {
+      type: 'array',
+      properties: {
+        nome: {type: "string"},
+        tel: {type: "string"},
+        email: {type: "string"},
+        titulo: {type: "string"},
+      },
+    },
+    400: {
+      type: 'object',
+      properties: {
+        msg: {type: "string"}
+      }
+    },
+    404: {
+      type: 'object',
+      properties: {
+        msg: {type: "string"}
+      },
+    },
+  },
+};
+
+module.exports = {reservSchema, reservBodySchema, reservDeleteSchema, reservReportSchema};
