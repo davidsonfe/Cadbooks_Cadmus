@@ -23,7 +23,7 @@ export async function clientCatRoutes(fastify: typeof server) {
       }
     });
 
-  fastify.get("/reader_cat/findone/:doc_id", {
+  fastify.get("/reader_cat/findone/:cat_id", {
       preValidation: [fastify.jwtauthentication],
       schema: schemas.catReaderOneSchema
     },
@@ -53,7 +53,7 @@ export async function clientCatRoutes(fastify: typeof server) {
       }
     });
 
-  fastify.put("/reader_cat/update/:doc_id", {
+  fastify.put("/reader_cat/update/:cat_id", {
       preValidation: [fastify.jwtauthentication],
       schema: schemas.catReaderUpDelSchema
     },
@@ -68,7 +68,7 @@ export async function clientCatRoutes(fastify: typeof server) {
       }
     });
 
-  fastify.delete("/reader_cat/delete/:doc_id", {
+  fastify.delete("/reader_cat/delete/:cat_id", {
       preValidation: [fastify.jwtauthentication],
       schema: schemas.catReaderUpDelSchema
     },
