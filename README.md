@@ -25,7 +25,7 @@ Versão lts|  versão    |
 ###### _______________________________________________________________________________________________________
 
 ## 👨‍💻 Instalação
-Para executar essa aplicação você precisará ter instalado em sua máquina o Git, Node e Reactjs, Mongodb.
+Para executar essa aplicação você precisará ter instalado em sua máquina o Git, Node.js, React.js e MongoDB.
 
 Após isso, siga os passos abaixo:
 
