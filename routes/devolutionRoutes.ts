@@ -14,10 +14,10 @@ export async function devlutionRoutes(fastify: typeof server) {
     },
     async (request: any, reply: any) => {
       try {
-        const penalty: number = await devolution.postDevolution(request.body.isn_id_cop, request.body as DevolutionModel);
+        const penalty = await devolution.postDevolution(request.body.isn_id_cop, request.body as DevolutionModel);
         if (typeof penalty === "number" && penalty > 0)
           return {penalty};
-        reply.status(200).send({penalty});
+        return{penalty};
       } catch (error) {
         reply.status(500).send({message: error});
       }
