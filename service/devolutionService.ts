@@ -19,10 +19,10 @@ export class DevolutionService {
     try {
       if (this.collection && this.collection2 && this.collection3) {
         const bk = await this.collection2.find({isn_id: isn_id_cop}).project({_id: 0}).toArray();
-        const brrow = (await this.collection3.find({isn_id_cop: isn_id_cop}).project({_id: 0}).toArray())[0].dt_empr;
+        const brrow = (await this.collection3.find({isn_id_cop: isn_id_cop}).project({_id: 0}).toArray())[0].dt_devol;
         devolution.dt_devol = new Date();
         if (!bk[0].emprestado) {
-          return 1;
+          return 0;
         } else {
           const emprestado = false;
           const diff = Math.abs(devolution.dt_devol.getTime() - brrow.getTime());
@@ -33,7 +33,7 @@ export class DevolutionService {
             return penalty;
           }
           await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado}})
-          return 1;
+          return 0;
         }
       }
     } catch (error) {
