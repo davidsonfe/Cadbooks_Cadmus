@@ -79,8 +79,8 @@ export class ReservService {
     try {
       if (this.collection && this.collection2 && this.collection3) {
         const brws = await this.collection.find({}).project({_: 0}).toArray();
-        const unit = Object();
-        const report = Array();
+        let unit = Object();
+        let report = Array();
         const today = new Date();
         for (let i = 0; i < brws.length; i++) {
           if (brws[i].dt_reserva.getDate() == today.getDate() && brws[i].dt_reserva.getMonth() == today.getMonth()) {
@@ -93,6 +93,7 @@ export class ReservService {
             unit["titulo"] = (await this.collection2.find({isn_id: brws[i].isn_id_cop}).project({_id: 0})
               .toArray())[0].titulo;
             report.push(unit);
+            unit = {};
           }
         }
         return report;

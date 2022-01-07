@@ -74,8 +74,8 @@ export class BookService {
     try {
       if (this.collection2 && this.collection3) {
         const brws = await this.collection2.find({}).project({_: 0}).toArray();
-        const unt = Object();
-        const report = Array();
+        let unt = Object();
+        let report = Array();
         const today = new Date();
         for (let i = 0; i < brws.length; i++) {
           if (brws[i].dt_devol.getDate() < today.getDate() || brws[i].dt_devol.getMonth() < today.getMonth()) {
@@ -88,6 +88,7 @@ export class BookService {
             unt["dt_empr"] = brws[i].dt_empr.toLocaleDateString("pt-BR");
             unt["dt_devol"] = brws[i].dt_devol.toLocaleDateString("pt-BR");
             report.push(unt);
+            unt = {};
           }
         }
         return report;
