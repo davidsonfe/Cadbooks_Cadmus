@@ -16,10 +16,7 @@ export async function devlutionRoutes(fastify: typeof server) {
       try {
         const penalty = await devolution.postDevolution(request.body.isn_id_cop, request.body as DevolutionModel);
         if (typeof penalty === "number" && penalty > 0)
-          return {msg: penalty}
-        else
-          reply.status(200).send({msg: 1});
-
+          return {penalty}
         reply.status(400).send({msg: "Favor preencher corretamente os campos."})
       } catch (error) {
         reply.status(500).send({message: error});

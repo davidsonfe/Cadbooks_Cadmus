@@ -17,7 +17,7 @@ export class DevolutionService {
 
   async postDevolution(isn_id_cop: string, devolution: DevolutionModel) {
     try {
-      if (this.collection && this.collection2 && this.collection3) {
+      if (this.collection2 && this.collection3) {
         const bk = await this.collection2.find({isn_id: isn_id_cop}).project({_id: 0}).toArray();
         const brrow = (await this.collection3.find({isn_id_cop: isn_id_cop}).project({_id: 0}).toArray())[0].dt_empr;
         devolution.dt_devol = new Date();
@@ -29,13 +29,11 @@ export class DevolutionService {
           const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
           if (days > bk[0].categoria.dias_limite) {
             const penalty = bk[0].categoria.multa * days;
-            const {acknowledged} = await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado}})
-            if (acknowledged)
-              return penalty;
+            await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado}})
+            return penalty;
           }
-          const {acknowledged} = await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado}})
-          if (acknowledged)
-            return 0;
+          await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado}})
+          return 1;
         }
       }
     } catch (error) {
