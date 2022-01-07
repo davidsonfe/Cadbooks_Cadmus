@@ -51,13 +51,15 @@ export class ReaderService {
     }
   }
 
-  async updateReader(id: string, leitor: ReaderModel) {
+  async updateReader(id: string, reader: ReaderModel) {
     try {
       if (this.collection) {
-        const {dt_nasc} = leitor;
-        leitor.dt_nasc = new Date(dt_nasc);
-        const {acknowledged} = await this.collection.updateOne({doc_id: id}, {$set: {...leitor}});
-        return acknowledged;
+        const {dt_nasc} = reader;
+        reader.dt_nasc = new Date(dt_nasc);
+        if (validateCPF(reader.doc_id)) {
+          const {acknowledged} = await this.collection.insertOne(reader);
+          return acknowledged;
+        }
       }
     } catch (error) {
       throw error;

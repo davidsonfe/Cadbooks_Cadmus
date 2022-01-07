@@ -58,8 +58,11 @@ export class WorkerService {
       if (this.collection) {
         const {dt_nasc} = worker;
         worker.dt_nasc = new Date(dt_nasc);
-        const {acknowledged} = await this.collection.updateOne({cpf: id}, {$set: {...worker}});
-        return acknowledged;
+        if (validateCPF(worker.cpf)) {
+          const {acknowledged} = await this.collection.updateOne({cpf: id}, {$set: {...worker}});
+          return acknowledged;
+        }
+        return false
       }
     } catch (error) {
       throw error;
