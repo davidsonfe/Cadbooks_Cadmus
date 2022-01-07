@@ -65,8 +65,7 @@ export class BorrowService {
           const brrws = Object();
           const dt = Array();
           for (let i = 0; i < bks.length; i++) {
-            console.log(bks[i].dt_empr.toLocaleDateString("pt-BR"));
-            // brrws["dt_empr"] = bks[i].dt_empr.toLocaleDateString("pt-BR");
+            brrws["dt_empr"] = bks[i].dt_empr.toLocaleDateString("pt-BR");
             brrws["dt_devol"] = bks[i].dt_devol.toLocaleDateString("pt-BR");
             brrws["nome"] = (await this.collection3.find({doc_id: bks[i].doc_id}).project({_id: 0}).toArray())[0].nome;
             brrws["titulo"] = (await this.collection2.find({isn_id: bks[i].isn_id_cop}).project({_id: 0}).toArray())[0].titulo;
