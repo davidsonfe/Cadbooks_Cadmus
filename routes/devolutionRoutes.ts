@@ -6,7 +6,7 @@ const schemas = require("../schemas/devolutionSchema");
 const server = require("../index");
 
 export async function devlutionRoutes(fastify: typeof server) {
-  const devolution: DevolutionService = new DevolutionService(fastify, "devolucao", "livros", "emprestimo");
+  const devolution: DevolutionService = new DevolutionService(fastify, "devolucao", "livros");
 
   fastify.post("/devolution/register", {
       preValidation: [fastify.jwtauthentication],
