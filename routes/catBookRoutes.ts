@@ -29,7 +29,7 @@ export async function bookCatRoutes(fastify: typeof server) {
     },
     async (request: any, reply: any) => {
       try {
-        const read = await catBook.getCatBook(request.params.doc_id);
+        const read = await catBook.getCatBook(request.params.cat_id);
         if (Array.isArray(read) && read.length > 0)
           return read;
         return reply.status(404).send({msg: "Categoria de livro não encontrada."});
@@ -59,7 +59,7 @@ export async function bookCatRoutes(fastify: typeof server) {
     },
     async (request: any, reply: any) => {
       try {
-        const verify = await catBook.updateCatBook(request.params.doc_id, request.body as CatBookModel);
+        const verify = await catBook.updateCatBook(request.params.cat_id, request.body as CatBookModel);
         if (verify)
           return reply.status(200).send({msg: "Categoria Livro atualizada."});
         reply.status(400).send({msg: "Verique os campos e tente novamente."});
@@ -74,7 +74,7 @@ export async function bookCatRoutes(fastify: typeof server) {
     },
     async (request: any, reply: any) => {
       try {
-        const verify = await catBook.deleteCatBook(request.params.doc_id);
+        const verify = await catBook.deleteCatBook(request.params.cat_id);
         if (verify)
           return reply.status(200).send({msg: "Categoria Livro removida."});
         reply.status(400).send({msg: "Verique os campos e tente novamente."});

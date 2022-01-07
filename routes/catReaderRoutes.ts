@@ -29,7 +29,7 @@ export async function clientCatRoutes(fastify: typeof server) {
     },
     async (request: any, reply: any) => {
       try {
-        const read = await catReader.getCatReader(request.params.doc_id);
+        const read = await catReader.getCatReader(request.params.cat_id);
         if (Array.isArray(read) && read.length > 0)
           return read;
         return reply.status(404).send({msg: "Categoria de leitor não encontrada."});
@@ -55,11 +55,11 @@ export async function clientCatRoutes(fastify: typeof server) {
 
   fastify.put("/reader_cat/update/:cat_id", {
       preValidation: [fastify.jwtauthentication],
-      schema: schemas.catReaderUpDelSchema
+      schema: schemas.catReaderBodySchema
     },
     async (request: any, reply: any) => {
       try {
-        const verify = await catReader.updateCatReader(request.params.doc_id, request.body as CatReaderModel);
+        const verify = await catReader.updateCatReader(request.params.cat_id, request.body as CatReaderModel);
         if (verify)
           return reply.status(200).send({msg: "Categoria Leitor atualizado."});
         reply.status(400).send({msg: "Verique os campos e tente novamente."});
@@ -74,7 +74,7 @@ export async function clientCatRoutes(fastify: typeof server) {
     },
     async (request: any, reply: any) => {
       try {
-        const verify = await catReader.deleteCatReader(request.params.doc_id);
+        const verify = await catReader.deleteCatReader(request.params.cat_id);
         if (verify)
           return reply.status(200).send({msg: "Categoria Leitor removido."});
         reply.status(400).send({msg: "Verique os campos e tente novamente."});
