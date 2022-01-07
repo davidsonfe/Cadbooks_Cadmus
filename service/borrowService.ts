@@ -64,15 +64,15 @@ export class BorrowService {
         const bks = await this.collection2.find({emprestado: true}).project({_id: 0}).toArray();
         const brrws = Object();
         const dt = Array();
-        for (let i = 0; i < bks.length; i++) {
+        for (let i = 0; i < brws.length; i++) {
           brrws["dt_empr"] = brws[i].dt_empr.toLocaleDateString("pt-BR");
           brrws["dt_devol"] = brws[i].dt_devol.toLocaleDateString("pt-BR");
           brrws["nome"] = (await this.collection3.find({doc_id: brws[i].doc_id}).project({_id: 0})
-            .toArray())[i].nome;
+            .toArray())[0].nome;
           brrws["titulo"] = (await this.collection2.find({isn_id: brws[i].isn_id_cop}).project({_id: 0})
-            .toArray())[i].titulo;
+            .toArray())[0].titulo;
           brrws["categoria"] = (await this.collection2.find({isn_id: brws[i].isn_id_cop}).project({_id: 0})
-            .toArray())[i].categoria.cat_id;
+            .toArray())[0].categoria.cat_id;
           dt.push(brrws);
         }
         return dt;
