@@ -30,11 +30,11 @@ export class DevolutionService {
           if (days > bk[0].categoria.dias_limite) {
             const penalty = bk[0].categoria.multa * (days - 1);
             await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado}});
-            await this.collection2.deleteOne({isn_id_cop: isn_id_cop});
+            await this.collection3.deleteOne({isn_id_cop: isn_id_cop});
             return penalty;
           }
           await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado}});
-          await this.collection2.deleteOne({isn_id_cop: isn_id_cop});
+          await this.collection3.deleteOne({isn_id_cop: isn_id_cop});
           return 0;
         }
       }
