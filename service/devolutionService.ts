@@ -28,7 +28,7 @@ export class DevolutionService {
           const diff = Math.abs(devolution.dt_devol.getTime() - brrow.getTime());
           const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
           if (days > bk[0].categoria.dias_limite) {
-            const penalty = bk[0].categoria.multa * days;
+            const penalty = bk[0].categoria.multa * (days - 1);
             await this.collection2.updateOne({isn_id: isn_id_cop}, {$set: {emprestado}})
             return penalty;
           }
